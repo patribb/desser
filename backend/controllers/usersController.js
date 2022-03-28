@@ -29,7 +29,7 @@ module.exports.register = async (req, res) => {
       } else {
         // email already taken
         return res
-          .status(401)
+          .status(400)
           .json({ errors: [{ msg: `El email: ${email} ya está en uso.` }] });
       }
     } catch (error) {
@@ -62,12 +62,12 @@ module.exports.login = async (req, res) => {
           }
         } else {
           return res
-            .status(401)
+            .status(400)
             .json({ errors: [{ msg: "Las credenciales no son correctas" }] });
         }
       } else {
         return res
-          .status(401)
+          .status(400)
           .json({
             errors: [
               {
@@ -82,6 +82,6 @@ module.exports.login = async (req, res) => {
     }
   } else {
     // validations failed
-    res.status(401).json({ errors: errors.array() });
+    res.status(400).json({ errors: errors.array() });
   }
 };

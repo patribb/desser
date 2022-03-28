@@ -18,7 +18,6 @@ const AdminLogin = () => {
   };
 
   const [login, response] = useAuthLoginMutation();
-  console.log(response);
   const errors = response?.error?.data?.errors
     ? response?.error?.data?.errors
     : [];

@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import ScreenHeader from "../../components/ScreenHeader";
 import Wrapper from "./Wrapper";
 import { useCreateMutation } from "../../store/services/categoryService";
+import { setSuccess } from '../../store/reducers/globalReducer';
 
 const CreateCategory = () => {
   const [state, setState] = useState("");
   const navigate = useNavigate();
   const [saveCategory, data] = useCreateMutation();
-  console.log(data);
+  const dispatch = useDispatch();
 
   const errors = data?.error?.data?.errors ? data?.error?.data?.errors : [];
 
@@ -19,6 +21,7 @@ const CreateCategory = () => {
 
   useEffect(() => {
     if(data?.isSuccess) {
+      dispatch(setSuccess(data?.data?.message));
       navigate('/dashboard/categories');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +59,7 @@ const CreateCategory = () => {
           <input
             type="submit"
             value={data.isLoading ? "Cargando..." : "Guardar categoría"}
-            className="btn-indigo"
+            className="btn btn-indigo"
           />
         </div>
       </form>
